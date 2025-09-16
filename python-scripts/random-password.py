@@ -11,27 +11,29 @@ symbols = ["!", "#", "$", "%", "&", "(", ")", "*", "+"]
 
 print("Welcome to Dev Qwecu's Random Password Generator😊")
 
-# Gets users password preference
+# Ask user for how many letters, symbols and numbers they want
 num_letters = int(input("How many letters would you like in your password?\n"))
 num_symbols = int(input("How many symbols would you like?\n"))
 num_numbers = int(input("How many numbers would you like?\n"))
 
 password = []
 
-# Gets random symbols and appends to the password list
+# Pick a random symbol and add to the password list
 for symbol in range(0, num_symbols):
     password.extend(random.choice(symbols))
 
-# Gets random numbers and appends to the password list
+# Pick a random number and add to the password list
 for number in range(0, num_numbers):
     password.extend(random.choice(numbers))
 
-# Gets random letters and appends to the password list
+# Pick a random letter and add to the password list
 for alphabet in range(0, num_letters):
     password.extend(random.choice(alphabets))
 
-# Shuffles/reorders the order of the password to make it more random
+# Shuffle the characters so the password is more random
 random.shuffle(password)
+
+# Converts the list into a single string
 results = "".join(password)
 print(results)
 
