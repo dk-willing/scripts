@@ -5,36 +5,40 @@ alphabets = [
     "n","o","p","q","r","s","t","u","v","w","x","y","z",
 ]
 
+from art import logo
+
+print(logo)
+
 command = input("Type 'encode' to encrypt text or 'decode' to decrypt text: ").lower()
 
 
 text = input("Type your message here: ").lower()
 shift_num = int(input("Enter number of secret shift number: "))
+shift_num = shift_num % 26
 
-# Encrypt function
-def encrypt(message, key):
-    cipher_text = "";
-    for letter in text:
-        if letter == " ":
-            cipher_text += " "
-        else:
-            idx = alphabets.index(letter)
-            new_idx = idx + shift_num
-            cipher_text += alphabets[new_idx]
-    print(f"The encrypted text is {cipher_text}")
+def ceaser(direction, start_text, key):
+        end_text = ""        
+        if direction == "decode":
+                key *= -1
+        for letter in start_text:
+            if letter not in alphabets:
+                end_text += letter
+            else:
+                position = alphabets.index(letter)
+                new_position = position + key;
+                end_text += alphabets[new_position]
+        print(f"Your {direction}d is {end_text}")
 
-def decrypt(message, key):
-    decoded_text=""
-    for letter in message:
-        if letter == " ":
-            decoded_text += " "
-        else:
-            idx = alphabets.index(letter)
-            new_idx = idx - key
-            decoded_text += alphabets[new_idx] 
-    print(f"The decrypted text is {decoded_text}")
+ceaser(direction=command, start_text=text, key=shift_num)
 
-if command == "encode":
-    encrypt(message=text, key=shift_num)
-elif command == "decode":
-    decrypt(message=text, key=shift_num)
+user_input = input("Would you want to go again? Type 'yes' else 'no': ")
+
+while user_input == "yes":
+    command = input("Type 'encode' to encrypt text or 'decode' to decrypt text: ").lower()
+    text = input("Type your message here: ").lower()
+    shift_num = int(input("Enter number of secret shift number: "))
+    shift_num = shift_num % 26
+    ceaser(direction=command, start_text=text, key=shift_num)
+    user_input = input("Would you want to go again? Type 'yes' else 'no': ")
+    if user_input == "no":
+        print("That was fun😊. Goodbye👋🏼")
